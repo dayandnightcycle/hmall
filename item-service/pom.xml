@@ -28,7 +28,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <!--数据库-->
         <dependency>
             <groupId>mysql</groupId>
@@ -40,7 +39,11 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
 
         </dependency>
-
+        <!-- nacos服务注册与发现 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>
