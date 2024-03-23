@@ -5,6 +5,7 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hmall.cart.client.ItemClient;
 import com.hmall.cart.domain.dto.ItemDTO;
 import com.hmall.cart.domain.po.Cart;
 import com.hmall.cart.domain.vo.CartVO;
@@ -47,6 +48,8 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
     private final RestTemplate restTemplate;
 
     private final DiscoveryClient discoveryClient;
+
+    private final ItemClient itemClient;
 
     @Override
     public void addItem2Cart(CartFormDTO cartFormDTO) {
@@ -91,9 +94,10 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
     }
 
     private void handleCartItems(List<CartVO> vos) {
-        // todo 1.获取商品id
+        //  1.获取商品id
         Set<Long> itemIds = vos.stream().map(CartVO::getItemId).collect(Collectors.toSet());
-        // 2.查询商品
+
+      /*   // 2.查询商品
         // 2.1根据服务名称获取服务的实例列表
         List<ServiceInstance> instances = discoveryClient.getInstances("item-service");
         if (CollUtils.isEmpty(instances)) {
@@ -102,7 +106,7 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
         // 2.2手写负载均衡，从实例列表中挑选一个实例
         ServiceInstance instance = instances.get(RandomUtil.randomInt(instances.size()));
         // 2.3利用RestTemplate发起http请i去，得到http的响应
-        ResponseEntity<List<ItemDTO>> response = restTemplate.exchange(instance.getUri()+"/items?ids={ids}",
+        ResponseEntity<List<ItemDTO>> response = restTemplate.exchange(instance.getUri() + "/items?ids={ids}",
                 HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<ItemDTO>>() {
                 },
@@ -110,7 +114,8 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
         if (!response.getStatusCode().is2xxSuccessful()) {
             return;
         }
-        List<ItemDTO> items = response.getBody();
+        List<ItemDTO> items = response.getBody(); */
+        List<ItemDTO> items = itemClient.queryItemsByIds(itemIds);
         if (CollUtils.isEmpty(items)) {
             return;
         }
