@@ -51,6 +51,11 @@
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-okhttp</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.hmall</groupId>
+            <artifactId>hm-api</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>
