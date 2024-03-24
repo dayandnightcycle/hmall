@@ -19,4 +19,16 @@ spring:
         - id: user-service
           uri: lb://user-service
           predicates:
-            - Path=//users/**
+            - Path=/users/**
+hm:
+  jwt:
+    location: classpath:hmall.jks
+    alias: hmall
+    password: hmall123
+    tokenTTL: 30m
+  auth:
+    excludePaths:
+      - /search/**
+      - /users/login
+      - /items/**
+      - /hi
