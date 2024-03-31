@@ -7,7 +7,7 @@ spring:
     nacos:
       server-addr: 192.168.152.128:8848
     gateway:
-      routes:
+      routes: #网关路由配置
         - id: item-service
           uri: lb://item-service
           predicates:
